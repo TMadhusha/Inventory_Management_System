@@ -33,6 +33,26 @@ used. Just used localStorage to store and persist all data.
 * **Dynamic Theme Toggling:** Full application switching support between Dark Mode and Light Mode setups.
 
 ---
+# Application Screenshots
 
+### Welcome Page
+![Welcome Page](./public/screenshots/welomePage.png)
+
+### Dashboard Overview
+![Dashboard](./public/screenshots/dashboard.png)
+* can't see the image? Make sure the path matches your project folder structure.*
+
+### Theme Showcase (Light vs Dark Mode)
+| Light Mode View | Dark Mode View |
+|--- |--- |
+| ![Light Mode Dashboard](./public/screenshots/dashboard.png) | ![Dark Mode Dashboard](./public/screenshots/darkmode.png) |
+
+### Product List
+| ![Product List](./public/screenshots/productList.png) |
+
+### Category List
+| ![Category List](./public/screenshots/categories.png) |
+
+---
 
  
