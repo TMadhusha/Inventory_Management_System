@@ -35,7 +35,7 @@ export default function CategoryList({ categories = [], onAddCategory, onDelete 
               
               <button 
                 onClick={() => onDelete(cat)} 
-                className="text-xs bg-purple-100 dark:bg-purple-950/60 p-1.5 text-red-700 dark:text-red-400 hover:bg-purple-200 dark:hover:bg-purple-900/60 rounded-full font-medium transition-colors"
+                className="text-xs bg-red-100 dark:bg-red-950/60 p-1.5 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/60 rounded-full font-medium transition-colors"
               >
                 <Trash2 size={16} />
               </button>

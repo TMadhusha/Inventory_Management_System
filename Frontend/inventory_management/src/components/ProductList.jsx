@@ -128,13 +128,13 @@ export default function ProductList({
                   <td className="px-4 py-3 text-right space-x-2 whitespace-nowrap">
                     <button 
                       onClick={() => onEdit(product)} 
-                      className="text-purple-600 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300 font-medium"
+                      className="hover:text-purple-900 dark:hover:text-purple-300 font-medium text-xs bg-purple-100 dark:bg-purple-950/60 p-1.5 text-purple-700 dark:text-purple-400 hover:bg-purple-200 dark:hover:bg-purple-900/60 rounded-full transition-colors"
                     >
                       <Edit2 size={16} />
                     </button>
                     <button 
                       onClick={() => onDelete(product.sku)} 
-                      className="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 font-medium"
+                      className=" text-xs bg-red-100 dark:bg-red-950/60 p-1.5 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/60 rounded-full transition-colors"
                     >
                       <Trash2 size={16} />
                     </button>

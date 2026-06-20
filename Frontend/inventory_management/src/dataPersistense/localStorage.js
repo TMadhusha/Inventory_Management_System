@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 export function localStorage(key, initialValue) {
-    // Get initial value from localStorage or fallback
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
@@ -12,7 +11,7 @@ export function localStorage(key, initialValue) {
     }
   });
 
-  // Update localStorage whenever storedValue changes
+  // Update localStorage
   useEffect(() => {
     try {
       window.localStorage.setItem(key, JSON.stringify(storedValue));
