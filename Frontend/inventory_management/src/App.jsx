@@ -11,8 +11,6 @@ export default function App() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
-  
-  // 1. Add view state logic ('welcome' is the starting view)
   const [currentView, setCurrentView] = useState('welcome');
 
   const handleAddOrEditProduct = (values) => {
@@ -34,6 +32,13 @@ export default function App() {
     }
   };
 
+  const handleDeleteCategory = (category) => {
+    if (window.confirm(`Are you sure you want to delete the category "${category}"? This will also remove all products in this category.`)) {
+      setCategories(categories.filter(cat => cat !== category));
+      setProducts(products.filter(p => p.category !== category));
+    }
+  };
+
   const handleAdjustStock = (sku, delta) => {
     setProducts(products.map(p => {
       if (p.sku === sku) {
@@ -44,7 +49,6 @@ export default function App() {
     }));
   };
 
-  // 2. Conditionally render the correct view safely
   if (currentView === 'welcome') {
     return <Welcome onNavigate={setCurrentView} />;
   }
@@ -62,6 +66,7 @@ export default function App() {
       handleDeleteProduct={handleDeleteProduct}
       handleAdjustStock={handleAdjustStock}
       onNavigate={setCurrentView}
+      handleDeleteCategory={handleDeleteCategory}
     />
   );
 }

@@ -1,6 +1,5 @@
-import React, { useState } from 'react'; // 👈 Added useState
+import React, { useState } from 'react';
 import CategoryList from './CategoryList'; 
-import ProductManager from './ProductManager';
 import ProductList from './ProductList';       
 import { ChevronLeft } from 'lucide-react';
 
@@ -15,10 +14,10 @@ export default function Dashboard({
   handleAddOrEditProduct,
   handleDeleteProduct,
   handleAdjustStock,
-  onNavigate
+  handleDeleteCategory,
+  onNavigate = () => {} 
 }) {
   
-  // 1. Local view controller state ('products' or 'categories')
   const [activeTab, setActiveTab] = useState('products');
 
   const totalProducts = products.length;
@@ -37,21 +36,15 @@ export default function Dashboard({
           <div className="flex items-center">
             <button 
               onClick={() => onNavigate('welcome')}
-              className='p-1 rounded-md bg-white hover:bg-gray-100 transition-colors duration-200 text-purple-700 mr-2 md:mr-3'
+              className='p-1 rounded-md hover:bg-purple-600 transition-colors duration-200 text-purple-700 mr-2 md:mr-3'
             >
               <ChevronLeft size={24} />
             </button>
-            <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Inventory Management System Dashboard</h1>
+            <h1 className="text-3xl font-extrabold justify-center text-gray-900 tracking-tight">Inventory Management System Dashboard</h1>
           </div>
-          <button
-            onClick={() => { setEditingProduct(null); setIsModalOpen(true); }}
-            className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-lg font-medium shadow transition-colors"
-          >
-            + Add New Product
-          </button>
         </header>
 
-        {/* 2. Interactive Navigation Tabs Strip */}
+        {/* Navigation Tabs */}
         <div className="flex items-center justify-center space-x-4 mb-6 bg-white bg-opacity-40 backdrop-blur-sm py-2 px-4 rounded-lg w-max mx-auto shadow-sm">
           <button 
             onClick={() => setActiveTab('products')}
@@ -84,7 +77,7 @@ export default function Dashboard({
           </div>
         </div>
 
-        {/* Stock Breakdown Breakdown Row */}
+        {/* Stock Breakdown Row */}
         <div className="bg-white p-6 rounded-lg shadow mb-8">
           <h3 className="text-lg font-bold text-gray-700 mb-4">Stock Breakdown per Category</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -97,13 +90,14 @@ export default function Dashboard({
           </div>
         </div>
 
-        {/* 3. Conditional rendering grid block based on active tab select status */}
+        {/* Main Content Area */}
         <div className="w-full">
           {activeTab === 'categories' ? (
             <div className="max-w-md mx-auto">
               <CategoryList
                 categories={categories} 
-                onAddCategory={(newCat) => setCategories([...categories, newCat])} 
+                onAddCategory={(newCat) => setCategories([...categories, newCat])}
+                onDelete={handleDeleteCategory}
               />
             </div>
           ) : (
@@ -113,17 +107,14 @@ export default function Dashboard({
               onEdit={(prod) => { setEditingProduct(prod); setIsModalOpen(true); }}
               onDelete={handleDeleteProduct}
               onAdjustStock={handleAdjustStock}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              editingProduct={editingProduct}
+              setEditingProduct={setEditingProduct}
+              handleAddOrEditProduct={handleAddOrEditProduct}
             />
           )}
         </div>
-
-        <ProductManager
-          isOpen={isModalOpen} 
-          onClose={() => { setIsModalOpen(false); setEditingProduct(null); }}
-          onSubmit={handleAddOrEditProduct}
-          initialValues={editingProduct}
-          categories={categories}
-        />
       </div>
     </div>
   );
