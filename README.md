@@ -41,7 +41,6 @@ used. Just used localStorage to store and persist all data.
 
 ### Dashboard Overview
 ![Dashboard](./public/screenshots/dashboard.png)
-* can't see the image? Make sure the path matches your project folder structure.*
 
 ### Theme Showcase (Light vs Dark Mode)
 | Light Mode View | Dark Mode View |
