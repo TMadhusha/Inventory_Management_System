@@ -33,6 +33,7 @@ used. Just used localStorage to store and persist all data.
 * **Dynamic Theme Toggling:** Full application switching support between Dark Mode and Light Mode setups.
 
 ---
+
 # Application Screenshots
 
 ### Welcome Page
