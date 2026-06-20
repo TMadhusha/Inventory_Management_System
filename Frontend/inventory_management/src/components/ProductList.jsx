@@ -1,20 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import ProductManager from './ProductManager';
 
-export default function ProductList({ products = [], categories =[], onEdit, onDelete, onAdjustStock }) {
-    const [search, setSearch] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [stockStatus, setStockStatus] = useState('');
+export default function ProductList({ 
+  products = [], 
+  categories = [], 
+  onEdit, 
+  onDelete, 
+  onAdjustStock,
+  isModalOpen,
+  setIsModalOpen,
+  editingProduct,
+  setEditingProduct,
+  handleAddOrEditProduct
+}) {
+  const [search, setSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [stockStatus, setStockStatus] = useState('');
 
-    // Filtering System
-    const filteredProducts = products.filter((product) => {
-        const matchesSearch = product.name.toLowerCase().includes(search.toLowerCase()) || product.sku.toLowerCase().includes(search.toLowerCase());
-        const matchesCategory = selectedCategory === '' || product.category === selectedCategory;
-        const matchesStatus = stockStatus === '' || (stockStatus === 'in' ? product.quantity > 0 : product.quantity === 0);
-        return matchesSearch && matchesCategory && matchesStatus;
-    });
+  // Filtering System
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name.toLowerCase().includes(search.toLowerCase()) || product.sku.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory = selectedCategory === '' || product.category === selectedCategory;
+    const matchesStatus = stockStatus === '' || (stockStatus === 'in' ? product.quantity > 0 : product.quantity === 0);
+    return matchesSearch && matchesCategory && matchesStatus;
+  });
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 overflow-hidden">
+    <div className="bg-white rounded-lg shadow p-6 overflow-hidden">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+        <div>
+          <h2 className="text-xl font-bold text-gray-800">Product List</h2>
+        </div>
+        <button
+          onClick={() => { setEditingProduct(null); setIsModalOpen(true); }}
+          className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-lg font-medium shadow transition-colors text-sm"
+        >
+          + Add New Product
+        </button>
+      </div>
+
       {/* Search and Filters */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <input
@@ -22,13 +46,13 @@ export default function ProductList({ products = [], categories =[], onEdit, onD
           placeholder="Search by name or SKU..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border border-gray-300 rounded-md p-2 text-sm shadow-sm"
+          className="border border-gray-300 rounded-md p-2 text-sm shadow-sm focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none"
         />
-        <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="border border-gray-300 rounded-md p-2 text-sm shadow-sm">
+        <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="border border-gray-300 rounded-md p-2 text-sm shadow-sm outline-none">
           <option value="">All Categories</option>
           {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
         </select>
-        <select value={stockStatus} onChange={(e) => setStockStatus(e.target.value)} className="border border-gray-300 rounded-md p-2 text-sm shadow-sm">
+        <select value={stockStatus} onChange={(e) => setStockStatus(e.target.value)} className="border border-gray-300 rounded-md p-2 text-sm shadow-sm outline-none">
           <option value="">All Stock Statuses</option>
           <option value="in">In Stock</option>
           <option value="out">Out of Stock</option>
@@ -78,6 +102,15 @@ export default function ProductList({ products = [], categories =[], onEdit, onD
           </tbody>
         </table>
       </div>
+
+      {/* Product Management Form Modal */}
+      <ProductManager
+        isOpen={isModalOpen} 
+        onClose={() => { setIsModalOpen(false); setEditingProduct(null); }}
+        onSubmit={handleAddOrEditProduct}
+        initialValues={editingProduct}
+        categories={categories}
+      />
     </div>
   );
 }
