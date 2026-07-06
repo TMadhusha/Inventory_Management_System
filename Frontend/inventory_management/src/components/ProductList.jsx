@@ -153,6 +153,7 @@ export default function ProductList({
         onSubmit={handleAddOrEditProduct}
         initialValues={editingProduct}
         categories={categories}
+        products={products}
       />
     </div>
   );
