@@ -4,7 +4,6 @@ export default function CategoryManager({ isOpen, onClose, onSubmit, categories 
   const [newCategory, setNewCategory] = useState('');
   const [error, setError] = useState('');
 
-  // Reset internal states whenever the overlay modal opens or closes
   useEffect(() => {
     if (!isOpen) {
       setNewCategory('');
@@ -38,9 +37,7 @@ export default function CategoryManager({ isOpen, onClose, onSubmit, categories 
   };
 
   return (
-    // 💡 Shifted backdrop overlay mask to black/40 to ensure text readability on light and dark dashboards alike
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-lg flex items-center justify-center p-4">
-      {/* 💡 Base component container toggles to sleek gray paneling in dark systems */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-md w-full overflow-hidden animate-fade-in transition-colors duration-200">
         
         {/* Modal Header */}
@@ -80,7 +77,6 @@ export default function CategoryManager({ isOpen, onClose, onSubmit, categories 
             )}
           </div>
 
-          {/* Form Action Buttons Container */}
           <div className="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
             <button
               type="button"
