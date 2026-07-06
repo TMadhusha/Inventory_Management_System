@@ -14,17 +14,15 @@ export default function App() {
   const [currentView, setCurrentView] = useState('welcome');
 
   const handleAddOrEditProduct = (values) => {
-    if (editingProduct) {
-      setProducts(products.map(p => p.sku === values.sku ? values : p));
-    } else {
-      if (products.some(p => p.sku === values.sku)) {
-        alert('Error: A product with this ID/SKU already exists!');
-        return;
-      }
-      setProducts([...products, values]);
-    }
-    setEditingProduct(null);
-  };
+  const alreadyExists = products.some(p => p.sku === values.sku);
+
+  if (alreadyExists) {
+    setProducts(products.map(p => (p.sku === values.sku ? values : p)));
+  } else {
+    setProducts([...products, values]);
+  }
+  setEditingProduct(null);
+};
 
   const handleDeleteProduct = (sku) => {
     if (window.confirm('Are you sure you want to remove this product?')) {
